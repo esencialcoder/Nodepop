@@ -6,6 +6,12 @@ Install dependencies with:
 npm install
 ```
 
+Initialize the database with:
+
+```sh
+npm run initDB
+```
+
 Start in development mode:
 
 ```sh
