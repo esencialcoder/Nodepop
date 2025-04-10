@@ -1,7 +1,7 @@
 'use strict';
 
-const connection = require('../../../lib/connectMongoose');
-const Anuncio = require('../../../models/Anuncio');
+const connection = require('../../lib/connectMongoose');
+const Anuncio = require('../../models/Anuncio');
 
 async function main() {
   await connection('mongodb://127.0.0.1:27017/nodepop');
