@@ -1,28 +1,27 @@
-"user strict";
+'use strict';
 
-const Anuncio = require("../models/Anuncio");
-const connection = require("../lib/connectMongoose");
+const mongoose = require('mongoose');
+const Anuncio = require('../models/Anuncio');
+const connectMongoose = require('../lib/connectMongoose');
+const fs = require('fs');
 
-main().catch((err) => console.log("Hubo un error", err));
+async function initDB() {
+  // Conectar a la base de datos
+  await connectMongoose('mongodb://127.0.0.1:27017/nodepop');
 
-async function main() {
-  // inicializar la colección de anuncioSchema
-  await initAnuncios();
-  connection.close();
-}
+  // Borrar todos los anuncios existentes
+  await Anuncio.deleteMany();
+  console.log('✅ Anuncios eliminados');
 
-async function initAnuncios() {
-  // borrar todos los anuncios existentes
-  const deleted = await Anuncio.deleteMany();
-  console.log(`Eliminados ${deleted.deletedCount} anuncios`, deleted);
-
-  // definir los anuncios que deben estar siempre presentes
-  const anunciosData = [
-    { nombre: 'iPhone 13', venta: true, precio: 650, foto: 'iphone13.png', tags: ['mobile', 'lifestyle'] },
-    { nombre: 'Samsung Galaxy S21', venta: true, precio: 750, foto: 's21.png', tags: ['mobile', 'electronics'] }
-  ];
-
+  // Leer el archivo JSON con los anuncios
+  const anunciosData = JSON.parse(fs.readFileSync('./data/anuncios.json', 'utf8'));
+  
   // Insertar los anuncios en la base de datos
-  const inserted = await Anuncio.insertMany(anunciosData);
-  console.log(`Creados ${inserted.length} anuncios`);
+  const result = await Anuncio.insertMany(anunciosData.anuncios);
+  console.log('✅ Anuncios insertados:', result.length);
+
+  // Cerrar la conexión
+  await mongoose.connection.close();
 }
+
+initDB().catch(err => console.error(err));
