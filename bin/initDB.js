@@ -24,6 +24,7 @@ async function initDB() {
 
   // Close the connection
   await mongoose.connection.close();
+
 }
 
 initDB().catch((err) => console.error(err));
