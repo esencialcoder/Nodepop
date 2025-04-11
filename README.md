@@ -24,6 +24,16 @@ This is the API for the **Nodepop** second-hand item sales service. It allows ma
 
 ## Documentation
 
+### Installation:
+
+Clone the repository
+
+```sh
+git clone <REPOSITORY_URL>
+cd nodepop
+```
+
+
 Install dependencies with:
 
 ```sh
