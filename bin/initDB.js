@@ -11,14 +11,14 @@ async function initDB() {
 
   // Borrar todos los anuncios existentes
   await Anuncio.deleteMany();
-  console.log('✅ Anuncios eliminados');
+  console.log('Anuncios eliminados');
 
   // Leer el archivo JSON con los anuncios
   const anunciosData = JSON.parse(fs.readFileSync('./data/anuncios.json', 'utf8'));
   
   // Insertar los anuncios en la base de datos
   const result = await Anuncio.insertMany(anunciosData.anuncios);
-  console.log('✅ Anuncios insertados:', result.length);
+  console.log('Anuncios insertados:', result.length);
 
   // Cerrar la conexión
   await mongoose.connection.close();
