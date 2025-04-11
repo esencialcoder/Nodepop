@@ -6,21 +6,21 @@ const connectMongoose = require('../lib/connectMongoose');
 const fs = require('fs');
 
 async function initDB() {
-  // Conectar a la base de datos
+  // Connect to the database
   await connectMongoose('mongodb://127.0.0.1:27017/nodepop');
 
-  // Borrar todos los anuncios existentes
+  // Delete all existing ads
   await Anuncio.deleteMany();
-  console.log('Anuncios eliminados');
+  console.log('Ads removed');
 
-  // Leer el archivo JSON con los anuncios
+  // Read the JSON file with the ads
   const anunciosData = JSON.parse(fs.readFileSync('./data/anuncios.json', 'utf8'));
   
-  // Insertar los anuncios en la base de datos
+  // Insert the ads into the database
   const result = await Anuncio.insertMany(anunciosData.anuncios);
-  console.log('Anuncios insertados:', result.length);
+  console.log('Inserted ads:', result.length);
 
-  // Cerrar la conexión
+  // Close the connection
   await mongoose.connection.close();
 }
 
