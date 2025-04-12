@@ -1,11 +1,74 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nodepop - Second-Hand Listings</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Ads Listing</h1>
+
+    <!-- Filters -->
+    <form method="GET" class="mb-4">
+      <div class="form-row">
+        <div class="col">
+          <label for="tag">Tag</label>
+          <input type="text" class="form-control" name="tag" value="<%= tag %>" placeholder="Tag (e.g. mobile)">
+        </div>
+        <div class="col">
+          <label for="name">Name</label>
+          <input type="text" class="form-control" name="name" value="<%= name %>" placeholder="Search by name">
+        </div>
+        <div class="col">
+          <label for="price">Price</label>
+          <input type="text" class="form-control" name="price" value="<%= price %>" placeholder="Price range (e.g. 10-50)">
+        </div>
+        <div class="col">
+          <label for="sale">Ad Type</label>
+          <select class="form-control" name="sale">
+            <option value="true" <%= sale === true || sale === 'true' ? 'selected' : '' %>>For Sale</option>
+            <option value="false" <%= sale === false || sale === 'false' ? 'selected' : '' %>>Wanted</option>
+          </select>
+        </div>
+        <div class="col">
+          <button type="submit" class="btn btn-primary mt-4">Apply Filters</button>
+        </div>
+      </div>
+    </form>
+
+    <!-- Ads list -->
+    <div class="row">
+      <% anuncios.forEach(ad => { %>
+        <div class="col-md-4">
+          <div class="card mb-4">
+            <img src="/images/ads/<%= ad.photo %>" class="card-img-top" alt="<%= ad.name %>">
+            <div class="card-body">
+              <h5 class="card-title"><%= ad.name %></h5>
+              <p class="card-text">
+                <strong>Price:</strong> <%= ad.price %> <br>
+                <strong>Type:</strong> <%= ad.sale ? 'For Sale' : 'Wanted' %> <br>
+                <strong>Tags:</strong> <%= ad.tags.join(', ') %>
+              </p>
+              <a href="#" class="btn btn-primary">View Details</a>
+            </div>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination">
+      <ul class="pagination">
+        <li class="page-item">
+          <a class="page-link" href="?start=<%= start - 1 %>&limit=<%= limit %>&tag=<%= tag %>&name=<%= name %>&price=<%= price %>&sale=<%= sale %>">Previous</a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href="?start=<%= start + 1 %>&limit=<%= limit %>&tag=<%= tag %>&name=<%= name %>&price=<%= price %>&sale=<%= sale %>">Next</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</body>
 </html>
