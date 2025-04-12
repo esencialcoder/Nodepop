@@ -1,3 +1,4 @@
+
 # Nodepop - Second-Hand Ads API
 
 ## Description
@@ -139,6 +140,82 @@ Get sale ads with tag `motor`, price between 100 and 1000, name starting with "h
 
 ```sh
 GET /api/anuncios?tag=motor&sale=true&price=100-1000&name=h&limit=3&sort=-price
+```
+
+---
+
+### 🔍 POST Example API Usage
+
+Base endpoint:
+
+```sh
+POST http://localhost:3000/api/anuncios
+```
+
+### 1. Create a new ad (sale)
+
+```sh
+POST /api/anuncios
+```
+
+#### Request Body (JSON):
+
+```json
+{
+  "name": "iPhone 12",
+  "sale": true,
+  "price": 600,
+  "photo": "http://example.com/iphone12.jpg",
+  "tags": "mobile"
+}
+```
+
+#### Response (JSON):
+
+```json
+{
+  "_id": "60b8f1e7b2e8c26d3b29f8e9",
+  "name": "iPhone 12",
+  "sale": true,
+  "price": 600,
+  "photo": "http://example.com/iphone12.jpg",
+  "tags": "mobile"
+  "__v": 0
+}
+```
+
+---
+
+### 2. Create a new ad (wanted item)
+
+```sh
+POST /api/anuncios
+```
+
+#### Request Body (JSON):
+
+```json
+{
+  "name": "Laptop for sale",
+  "sale": false,
+  "price": 0,
+  "photo": "http://example.com/laptop.jpg",
+  "tags": "lifestyle"
+}
+```
+
+#### Response (JSON):
+
+```json
+{
+  "_id": "60b8f1e7b2e8c26d3b29f8ea",
+  "name": "Laptop for sale",
+  "sale": false,
+  "price": 0,
+  "photo": "http://example.com/laptop.jpg",
+  "tags": "lifestyle"
+  "__v": 0
+}
 ```
 
 ---
