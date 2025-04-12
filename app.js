@@ -4,7 +4,12 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 
-require("./lib/connectMongoose");
+const connectMongoose = require("./lib/connectMongoose");
+
+connectMongoose("mongodb://127.0.0.1:27017/nodepop").catch(err => {
+  console.error("Database connection error:", err);
+});
+
 
 var app = express();
 
