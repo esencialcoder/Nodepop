@@ -54,4 +54,26 @@ router.get("/", async (req, res, next) => {
   }
 });
 
+// POST route to create a new ad
+router.post('/', async (req, res, next) => {
+  try {
+    const { name, sale, price, photo, tags } = req.body;
+
+    // Validate data
+    if (!name || !sale || !price || !tags) {
+      return res.status(400).json({ error: 'Missing required fields' });
+    }
+
+    // Create the new ad
+    const nuevoAnuncio = new Anuncio({ name, sale, price, photo, tags });
+
+    // Save to the database
+    const savedAd = await nuevoAnuncio.save();
+    res.status(201).json(savedAd);
+  } catch (err) {
+    next(err);
+  }
+});
+
+
 module.exports = router;
