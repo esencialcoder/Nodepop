@@ -95,8 +95,6 @@ GET /api/anuncios
 GET /api/anuncios?tag=mobile
 ```
 
----
-
 ### 3. Filter by ad type (sale or search)
 
 ```sh
@@ -107,8 +105,6 @@ GET /api/anuncios?sale=true
 GET /api/anuncios?sale=false
 ```
 
----
-
 ### 4. Filter by price range
 
 ```sh
@@ -116,7 +112,6 @@ GET /api/anuncios?price=50-200
 GET /api/anuncios?price=100-
 GET /api/anuncios?price=-300
 ```
----
 
 ### 5. Search by name
 
@@ -124,15 +119,11 @@ GET /api/anuncios?price=-300
 GET /api/anuncios?name=iPhone
 ```
 
----
-
 ### 6. Pagination and sorting
 
 ```sh
 GET /api/anuncios?start=10&limit=5&sort=-price
 ```
-
----
 
 ### 7. Combined filters
 
@@ -161,7 +152,6 @@ POST /api/anuncios
   "tags": "mobile"
 }
 ```
----
 
 ### 2. Create a new ad (wanted item)
 
