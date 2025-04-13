@@ -189,7 +189,8 @@ POST /api/anuncios
 
 
 🧪 Extras
-✅ ESLint is used to enforce consistent code style.
+
+- ✅ ESLint is used to enforce consistent code style.
 You can run it manually using:
 
 ```sh
