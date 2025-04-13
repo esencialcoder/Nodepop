@@ -184,6 +184,7 @@ POST /api/anuncios
 - The `name` filter is case-insensitive and uses a regular expression to match from the start of the string.
 - All filters can be combined.
 
+---
 
 🧪 Extras
 
@@ -193,3 +194,5 @@ You can run it manually using:
 ```sh
 npx slint .
 ```
+
+---
