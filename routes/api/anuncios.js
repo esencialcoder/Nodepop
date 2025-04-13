@@ -3,6 +3,8 @@
 const express = require("express");
 const router = express.Router();
 const Anuncio = require("../../models/Anuncio");
+const { body, validationResult } = require('express-validator');
+
 
 // GET to list ads with filters
 router.get("/", async (req, res, next) => {
@@ -54,26 +56,59 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-// POST route to create a new ad
-router.post('/', async (req, res, next) => {
-  try {
-    const { name, sale, price, photo, tags } = req.body;
+const validateAd = [
+  body('name')
+    .notEmpty().withMessage('Name is required'),
 
-    // Validate data
-    if (!name || !sale || !price || !tags) {
-      return res.status(400).json({ error: 'Missing required fields' });
+  body('sale')
+    .isBoolean().withMessage('Sale must be a boolean (true or false)'),
+
+  body('price')
+    .isFloat({ gt: 0 }).withMessage('Price must be a positive number'),
+
+  body('photo')
+    .optional().isString().withMessage('Photo must be a string'),
+
+    body('tags')
+    .customSanitizer((value) => {
+      // Convierte string a array si es necesario
+      if (typeof value === 'string') {
+        return [value];
+      }
+      return value;
+    })
+    .isArray().withMessage('Tags must be an array')
+    .custom((tags) => {
+      const allowed = ['work', 'lifestyle', 'motor', 'mobile'];
+      const invalidTags = tags.filter(tag => !allowed.includes(tag));
+      if (invalidTags.length > 0) {
+        throw new Error(`Invalid tags: ${invalidTags.join(', ')}`);
+      }
+      return true;
+    })
+  
+];
+
+// POST route to create a new ad
+router.post('/', validateAd, async (req, res, next) => {
+  try {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
     }
 
-    // Create the new ad
-    const nuevoAnuncio = new Anuncio({ name, sale, price, photo, tags });
+    const { name, sale, price, photo, tags } = req.body;
 
-    // Save to the database
+    const nuevoAnuncio = new Anuncio({ name, sale, price, photo, tags });
     const savedAd = await nuevoAnuncio.save();
+
     res.status(201).json(savedAd);
   } catch (err) {
     next(err);
   }
 });
+
 
 
 module.exports = router;
