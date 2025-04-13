@@ -89,11 +89,7 @@ GET http://localhost:3000/api/anuncios
 GET /api/anuncios
 ```
 
----
-
 ### 2. Filter by tag
-
-Get ads with the `mobile` tag:
 
 ```sh
 GET /api/anuncios?tag=mobile
