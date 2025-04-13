@@ -71,7 +71,7 @@ const validateAd = [
 
     body('tags')
     .customSanitizer((value) => {
-      // Convierte string a array si es necesario
+      // Convert string to array if necessary
       if (typeof value === 'string') {
         return [value];
       }
