@@ -116,6 +116,7 @@ GET /api/anuncios?price=50-200
 GET /api/anuncios?price=100-
 GET /api/anuncios?price=-300
 ```
+---
 
 ### 5. Search by name
 
@@ -160,8 +161,7 @@ POST /api/anuncios
   "tags": "mobile"
 }
 ```
-
-
+---
 
 ### 2. Create a new ad (wanted item)
 
@@ -176,6 +176,7 @@ POST /api/anuncios
   "tags": "lifestyle"
 }
 ```
+---
 
 ### 📌 Notes
 
