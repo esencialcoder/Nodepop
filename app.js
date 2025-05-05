@@ -3,10 +3,14 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
+require('dotenv').config();
+
 
 const connectMongoose = require("./lib/connectMongoose");
+const mongoUri = process.env.MONGODB_URI;
 
-connectMongoose("mongodb://127.0.0.1:27017/nodepop").catch(err => {
+
+connectMongoose(mongoUri).catch(err => {
   console.error("Database connection error:", err);
 });
 

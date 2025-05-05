@@ -4,10 +4,14 @@ const mongoose = require("mongoose");
 const Anuncio = require("../models/Anuncio");
 const connectMongoose = require("../lib/connectMongoose");
 const fs = require("fs");
+require('dotenv').config();
 
 async function initDB() {
+  
+  const mongoUri = process.env.MONGODB_URI
+
   // Connect to the database
-  await connectMongoose("mongodb://127.0.0.1:27017/nodepop");
+  await connectMongoose(mongoUri);
 
   // Delete all existing ads
   await Anuncio.deleteMany();
